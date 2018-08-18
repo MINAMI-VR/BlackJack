@@ -4,13 +4,15 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class BlackJack : MonoBehaviour {
+public class BlackJack : MonoBehaviour
+{
     Card[] Deck = new Card[52];
     Card[] ShuffledDeck = new Card[52];
 
     int DeckIndex;
     int PlayerScore;
     int DealerScore;
+    int Balance = 10;
 
     List<int> PlayerHand = new List<int>();
     List<int> DealerHand = new List<int>();
@@ -28,41 +30,42 @@ public class BlackJack : MonoBehaviour {
     private const int Diamond = 2;
     private const int Club = 3;
 
-	void Start () {
-		for (int i = 0; i < 52; i++)
+    void Start()
+    {
+        for (int i = 0; i < 52; i++)
         {
             Deck[i] = new Card();
             ShuffledDeck[i] = new Card();
 
             if (i < 40)
             {
-                Deck[i].num = i % 10 + 1;
-                Deck[i].val = i % 10 + 1;
+                Deck[i].Num = i % 10 + 1;
+                Deck[i].Val = i % 10 + 1;
 
-                if (i < 10) Deck[i].mark = Spade;
-                else if (i < 20) Deck[i].mark = Heart;
-                else if (i < 30) Deck[i].mark = Diamond;
-                else Deck[i].mark = Club;
+                if (i < 10) Deck[i].Mark = Spade;
+                else if (i < 20) Deck[i].Mark = Heart;
+                else if (i < 30) Deck[i].Mark = Diamond;
+                else Deck[i].Mark = Club;
             }
 
             else
             {
-                Deck[i].val = 10;
-                Deck[i].num = i % 3 + 11;
+                Deck[i].Val = 10;
+                Deck[i].Num = i % 3 + 11;
 
-                if (i < 43) Deck[i].mark = Spade;
-                else if (i < 46) Deck[i].mark = Heart;
-                else if (i < 49) Deck[i].mark = Diamond;
-                else Deck[i].mark = Club;
+                if (i < 43) Deck[i].Mark = Spade;
+                else if (i < 46) Deck[i].Mark = Heart;
+                else if (i < 49) Deck[i].Mark = Diamond;
+                else Deck[i].Mark = Club;
             }
         }
 
         Shuffle();
-	}
-	
-	void Update () {
-		
-	}
+    }
+
+    void Update()
+    {
+    }
 
     void Shuffle()
     {
@@ -92,26 +95,28 @@ public class BlackJack : MonoBehaviour {
         int Score = 0;
         foreach (int i in Hand)
         {
-            Score += ShuffledDeck[i].val;
+            Score += ShuffledDeck[i].Val;
         }
+
         if (Score < 12)
         {
             foreach (int i in Hand)
             {
-                if (ShuffledDeck[i].val == 1)
+                if (ShuffledDeck[i].Val == 1)
                 {
                     Score += 10;
                     break;
                 }
             }
         }
+
         return Score;
     }
 }
 
 public class Card
 {
-    public int mark;
-    public int num;
-    public int val;
+    public int Mark;
+    public int Num;
+    public int Val;
 }
